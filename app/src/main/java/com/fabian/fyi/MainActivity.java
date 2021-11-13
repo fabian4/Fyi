@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final TextView textView = findViewById(R.id.clientId);
-        textView.setText("啊啊啊");
+        textView.setText("啊");
 
         textView.setOnClickListener(v -> {
             ClipboardManager clipboard = (ClipboardManager) getApplicationContext().getSystemService(CLIPBOARD_SERVICE);
