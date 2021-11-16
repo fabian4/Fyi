@@ -23,7 +23,7 @@
 		"project_id":"737518067793611623",
 		"app_id":"104860493",
 		"api_key":"CwEAAAAAiBKcjFsJgHVMZdGqvMtY/GiSQEdzRxRVvaR2u6T3clQvwlekVVh1tlxm8aVxSTSg4O+CEVJBFD/Et6t/aMxlQgjRQiI=",
-		"package_name":"com.fabian.fyi"
+		"package_name":"com.fabian.Fyi"
 	},
 	"oauth_client":{
 		"client_id":"104860493",
@@ -31,7 +31,7 @@
 	},
 	"app_info":{
 		"app_id":"104860493",
-		"package_name":"com.fabian.fyi"
+		"package_name":"com.fabian.Fyi"
 	},
 	"service":{
 		"analytics":{
@@ -57,12 +57,12 @@
 	"configuration_version":"3.0",
 	"appInfos":[
 		{
-			"package_name":"com.fabian.fyi",
+			"package_name":"com.fabian.Fyi",
 			"client":{
 				"app_id":"104860493"
 			},
 			"app_info":{
-				"package_name":"com.fabian.fyi",
+				"package_name":"com.fabian.Fyi",
 				"app_id":"104860493"
 			},
 			"oauth_client":{

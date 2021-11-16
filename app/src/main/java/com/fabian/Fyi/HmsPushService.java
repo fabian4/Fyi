@@ -1,6 +1,7 @@
-package com.fabian.fyi;
+package com.fabian.Fyi;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -36,6 +37,11 @@ public class HmsPushService extends HmsMessageService {
         intent.putExtra("msg", "onNewToken called, token: " + token);
 
         sendBroadcast(intent);
+    }
+
+    @Override
+    public void onNewToken(String token, Bundle bundle){
+        Log.i(TAG, "received refresh token:" + token);
     }
 
     private void refreshedTokenToServer(String token) {

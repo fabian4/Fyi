@@ -1,4 +1,4 @@
-package com.fabian.fyi;
+package com.fabian.Fyi;
 
 import android.content.Context;
 
