@@ -39,11 +39,6 @@ public class HmsPushService extends HmsMessageService {
         sendBroadcast(intent);
     }
 
-    @Override
-    public void onNewToken(String token, Bundle bundle){
-        Log.i(TAG, "received refresh token:" + token);
-    }
-
     private void refreshedTokenToServer(String token) {
         Log.i(TAG, "sending token to server. token:" + token);
     }

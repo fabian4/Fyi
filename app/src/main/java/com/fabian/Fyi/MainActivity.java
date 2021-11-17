@@ -17,15 +17,6 @@ public class MainActivity extends AppCompatActivity {
 
         final TextView textView = findViewById(R.id.clientId);
         textView.setText("啊");
-//        new Thread(()->{
-//            try {
-//                String token = HmsInstanceId.getInstance(MainActivity.this).getToken("104860493", "HCM");
-//                Log.i("push", "getToken: ====================="+token);
-//            } catch (ApiException e) {
-//                e.printStackTrace();
-//            }
-//        }).start();
-
 
         textView.setOnClickListener(v -> {
             ClipboardManager clipboard = (ClipboardManager) getApplicationContext().getSystemService(CLIPBOARD_SERVICE);
