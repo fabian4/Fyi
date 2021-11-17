@@ -1,9 +1,14 @@
 package com.fabian.Fyi;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.huawei.hms.push.HmsMessageService;
 import com.huawei.hms.push.RemoteMessage;
@@ -41,6 +46,12 @@ public class HmsPushService extends HmsMessageService {
 
     private void refreshedTokenToServer(String token) {
         Log.i(TAG, "sending token to server. token:" + token);
+        ClipboardManager clipboard = (ClipboardManager) getApplicationContext().getSystemService(CLIPBOARD_SERVICE);
+        ClipData myClip = ClipData.newPlainText("token", token);
+        clipboard.setPrimaryClip(myClip);
+
+        Handler handler=new Handler(Looper.getMainLooper());
+        handler.post(() -> Toast.makeText(getApplicationContext(), "token 已复制", Toast.LENGTH_SHORT).show());
     }
 
     /**
