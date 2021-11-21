@@ -1,33 +1,36 @@
 package com.fabian.Fyi;
 
-import android.annotation.SuppressLint;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.os.Bundle;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.fabian.Fyi.adapter.Message;
+import com.fabian.Fyi.adapter.MsgAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
-    @SuppressLint("HandlerLeak")
+    private final List<Message> messages = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        final TextView textView = findViewById(R.id.clientId);
-//        textView.setText("token");
+        initDate();
+        MsgAdapter msgAdapter = new MsgAdapter(MainActivity.this, R.layout.msg_item, messages);
+        ListView listview = findViewById(R.id.list);
+        listview.setAdapter(msgAdapter);
+    }
 
-
-//        textView.setOnClickListener(v -> {
-//            ClipboardManager clipboard = (ClipboardManager) getApplicationContext().getSystemService(CLIPBOARD_SERVICE);
-//            String text = textView.getText().toString();
-//            ClipData myClip = ClipData.newPlainText("text", text);
-//            clipboard.setPrimaryClip(myClip);
-//            Toast.makeText(getApplicationContext(), text + " 已复制", Toast.LENGTH_SHORT).show();
-//        });
-
+    public void initDate(){
+        for (int i = 0; i < 10; i++) {
+            Message msg = new Message("tag", "msg" + i, "detail");
+            messages.add(msg);
+        }
     }
 }

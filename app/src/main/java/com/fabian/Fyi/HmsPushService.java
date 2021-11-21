@@ -46,12 +46,12 @@ public class HmsPushService extends HmsMessageService {
 
     private void refreshedTokenToServer(String token) {
         Log.i(TAG, "sending token to server. token:" + token);
-        ClipboardManager clipboard = (ClipboardManager) getApplicationContext().getSystemService(CLIPBOARD_SERVICE);
-        ClipData myClip = ClipData.newPlainText("token", token);
-        clipboard.setPrimaryClip(myClip);
-
-        Handler handler=new Handler(Looper.getMainLooper());
-        handler.post(() -> Toast.makeText(getApplicationContext(), "token 已复制", Toast.LENGTH_SHORT).show());
+//        ClipboardManager clipboard = (ClipboardManager) getApplicationContext().getSystemService(CLIPBOARD_SERVICE);
+//        ClipData myClip = ClipData.newPlainText("token", token);
+//        clipboard.setPrimaryClip(myClip);
+//
+//        Handler handler=new Handler(Looper.getMainLooper());
+//        handler.post(() -> Toast.makeText(getApplicationContext(), "token 已复制", Toast.LENGTH_SHORT).show());
     }
 
     /**
