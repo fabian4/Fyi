@@ -1,25 +1,19 @@
-package com.fabian.Fyi;
+package com.fabian.fyi
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.text.TextUtils;
-import android.util.Log;
-import android.widget.Toast;
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Intent
+import android.os.Handler
+import android.os.Looper
+import android.text.TextUtils
+import android.util.Log
+import android.widget.Toast
+import com.huawei.hms.push.HmsMessageService
+import com.huawei.hms.push.RemoteMessage
+import com.huawei.hms.push.SendException
+import java.util.*
 
-import com.huawei.hms.push.HmsMessageService;
-import com.huawei.hms.push.RemoteMessage;
-import com.huawei.hms.push.SendException;
-
-import java.util.Arrays;
-
-public class HmsPushService extends HmsMessageService {
-    private static final String TAG = "PushDemoLog";
-    private final static String CODELABS_ACTION = "com.huawei.codelabpush.action";
-
+class HmsPushService : HmsMessageService() {
     /**
      * When an app calls the getToken method to apply for a token from the server,
      * if the server does not return the token during current method calling, the server can return the token through this method later.
@@ -27,31 +21,27 @@ public class HmsPushService extends HmsMessageService {
      *
      * @param token token
      */
-    @Override
-    public void onNewToken(String token) {
-        Log.i(TAG, "received refresh token:" + token);
+    override fun onNewToken(token: String) {
+        Log.i(TAG, "received refresh token:$token")
         // send the token to your app server.
         if (!TextUtils.isEmpty(token)) {
             // This method callback must be completed in 10 seconds. Otherwise, you need to start a new Job for callback processing.
-            refreshedTokenToServer(token);
+            refreshedTokenToServer(token)
         }
-
-        Intent intent = new Intent();
-        intent.setAction(CODELABS_ACTION);
-        intent.putExtra("method", "onNewToken");
-        intent.putExtra("msg", "onNewToken called, token: " + token);
-
-        sendBroadcast(intent);
+        val intent = Intent()
+        intent.action = CODELABS_ACTION
+        intent.putExtra("method", "onNewToken")
+        intent.putExtra("msg", "onNewToken called, token: $token")
+        sendBroadcast(intent)
     }
 
-    private void refreshedTokenToServer(String token) {
-        Log.i(TAG, "sending token to server. token:" + token);
-        ClipboardManager clipboard = (ClipboardManager) getApplicationContext().getSystemService(CLIPBOARD_SERVICE);
-        ClipData myClip = ClipData.newPlainText("token", token);
-        clipboard.setPrimaryClip(myClip);
-
-        Handler handler=new Handler(Looper.getMainLooper());
-        handler.post(() -> Toast.makeText(getApplicationContext(), "token 已复制", Toast.LENGTH_SHORT).show());
+    private fun refreshedTokenToServer(token: String) {
+        Log.i(TAG, "sending token to server. token:$token")
+        val clipboard = applicationContext.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+        val myClip = ClipData.newPlainText("token", token)
+        clipboard.setPrimaryClip(myClip)
+        val handler = Handler(Looper.getMainLooper())
+        handler.post { Toast.makeText(applicationContext, "token 已复制", Toast.LENGTH_SHORT).show() }
     }
 
     /**
@@ -60,12 +50,11 @@ public class HmsPushService extends HmsMessageService {
      *
      * @param message RemoteMessage
      */
-    @Override
-    public void onMessageReceived(RemoteMessage message) {
-        Log.i(TAG, "onMessageReceived is called");
+    override fun onMessageReceived(message: RemoteMessage) {
+        Log.i(TAG, "onMessageReceived is called")
         if (message == null) {
-            Log.e(TAG, "Received message entity is null!");
-            return;
+            Log.e(TAG, "Received message entity is null!")
+            return
         }
         // getCollapseKey() Obtains the classification identifier (collapse key) of a message.
         // getData() Obtains valid content data of a message.
@@ -75,20 +64,19 @@ public class HmsPushService extends HmsMessageService {
         // getOriginalUrgency() Obtains the original priority of a message.
         // getSentTime() Obtains the time when a message is sent from the server.
         // getTo() Obtains the recipient of a message.
-
-        Log.i(TAG, "getCollapseKey: " + message.getCollapseKey()
-                + "\n getData: " + message.getData()
-                + "\n getFrom: " + message.getFrom()
-                + "\n getTo: " + message.getTo()
-                + "\n getMessageId: " + message.getMessageId()
-                + "\n getMessageType: " + message.getMessageType()
-                + "\n getSendTime: " + message.getSentTime()
-                + "\n getTtl: " + message.getTtl()
-                + "\n getSendMode: " + message.getSendMode()
-                + "\n getReceiptMode: " + message.getReceiptMode()
-                + "\n getOriginalUrgency: " + message.getOriginalUrgency()
-                + "\n getUrgency: " + message.getUrgency()
-                + "\n getToken: " + message.getToken());
+        Log.i(TAG, """getCollapseKey: ${message.collapseKey}
+ getData: ${message.data}
+ getFrom: ${message.from}
+ getTo: ${message.to}
+ getMessageId: ${message.messageId}
+ getMessageType: ${message.messageType}
+ getSendTime: ${message.sentTime}
+ getTtl: ${message.ttl}
+ getSendMode: ${message.sendMode}
+ getReceiptMode: ${message.receiptMode}
+ getOriginalUrgency: ${message.originalUrgency}
+ getUrgency: ${message.urgency}
+ getToken: ${message.token}""")
 
         // getBody() Obtains the displayed content of a message
         // getTitle() Obtains the title of a message
@@ -105,93 +93,89 @@ public class HmsPushService extends HmsMessageService {
         // getImageUrl() Obtains the image URL from a message
         // getLink() Obtains the URL to be accessed from a message
         // getNotifyId() Obtains the unique ID of a message
-
-        RemoteMessage.Notification notification = message.getNotification();
+        val notification = message.notification
         if (notification != null) {
-            Log.i(TAG, "\n getTitle: " + notification.getTitle()
-                    + "\n getTitleLocalizationKey: " + notification.getTitleLocalizationKey()
-                    + "\n getTitleLocalizationArgs: " + Arrays.toString(notification.getTitleLocalizationArgs())
-                    + "\n getBody: " + notification.getBody()
-                    + "\n getBodyLocalizationKey: " + notification.getBodyLocalizationKey()
-                    + "\n getBodyLocalizationArgs: " + Arrays.toString(notification.getBodyLocalizationArgs())
-                    + "\n getIcon: " + notification.getIcon()
-                    + "\n getImageUrl: " + notification.getImageUrl()
-                    + "\n getSound: " + notification.getSound()
-                    + "\n getTag: " + notification.getTag()
-                    + "\n getColor: " + notification.getColor()
-                    + "\n getClickAction: " + notification.getClickAction()
-                    + "\n getIntentUri: " + notification.getIntentUri()
-                    + "\n getChannelId: " + notification.getChannelId()
-                    + "\n getLink: " + notification.getLink()
-                    + "\n getNotifyId: " + notification.getNotifyId()
-                    + "\n isDefaultLight: " + notification.isDefaultLight()
-                    + "\n isDefaultSound: " + notification.isDefaultSound()
-                    + "\n isDefaultVibrate: " + notification.isDefaultVibrate()
-                    + "\n getWhen: " + notification.getWhen()
-                    + "\n getLightSettings: " + Arrays.toString(notification.getLightSettings())
-                    + "\n isLocalOnly: " + notification.isLocalOnly()
-                    + "\n getBadgeNumber: " + notification.getBadgeNumber()
-                    + "\n isAutoCancel: " + notification.isAutoCancel()
-                    + "\n getImportance: " + notification.getImportance()
-                    + "\n getTicker: " + notification.getTicker()
-                    + "\n getVibrateConfig: " + Arrays.toString(notification.getVibrateConfig())
-                    + "\n getVisibility: " + notification.getVisibility());
+            Log.i(TAG, """
+ getTitle: ${notification.title}
+ getTitleLocalizationKey: ${notification.titleLocalizationKey}
+ getTitleLocalizationArgs: ${Arrays.toString(notification.titleLocalizationArgs)}
+ getBody: ${notification.body}
+ getBodyLocalizationKey: ${notification.bodyLocalizationKey}
+ getBodyLocalizationArgs: ${Arrays.toString(notification.bodyLocalizationArgs)}
+ getIcon: ${notification.icon}
+ getImageUrl: ${notification.imageUrl}
+ getSound: ${notification.sound}
+ getTag: ${notification.tag}
+ getColor: ${notification.color}
+ getClickAction: ${notification.clickAction}
+ getIntentUri: ${notification.intentUri}
+ getChannelId: ${notification.channelId}
+ getLink: ${notification.link}
+ getNotifyId: ${notification.notifyId}
+ isDefaultLight: ${notification.isDefaultLight}
+ isDefaultSound: ${notification.isDefaultSound}
+ isDefaultVibrate: ${notification.isDefaultVibrate}
+ getWhen: ${notification.getWhen()}
+ getLightSettings: ${Arrays.toString(notification.lightSettings)}
+ isLocalOnly: ${notification.isLocalOnly}
+ getBadgeNumber: ${notification.badgeNumber}
+ isAutoCancel: ${notification.isAutoCancel}
+ getImportance: ${notification.importance}
+ getTicker: ${notification.ticker}
+ getVibrateConfig: ${Arrays.toString(notification.vibrateConfig)}
+ getVisibility: ${notification.visibility}""")
         }
-
-        Intent intent = new Intent();
-        intent.setAction(CODELABS_ACTION);
-        intent.putExtra("method", "onMessageReceived");
-        intent.putExtra("msg", "onMessageReceived called, message id:" + message.getMessageId() + ", payload data:"
-                + message.getData());
-
-        sendBroadcast(intent);
-
-        Boolean judgeWhetherIn10s = false;
+        val intent = Intent()
+        intent.action = CODELABS_ACTION
+        intent.putExtra("method", "onMessageReceived")
+        intent.putExtra("msg", "onMessageReceived called, message id:" + message.messageId + ", payload data:"
+                + message.data)
+        sendBroadcast(intent)
+        val judgeWhetherIn10s = false
 
         // If the messages are not processed in 10 seconds, the app needs to use WorkManager for processing.
         if (judgeWhetherIn10s) {
-            startWorkManagerJob(message);
+            startWorkManagerJob(message)
         } else {
             // Process message within 10s
-            processWithin10s(message);
+            processWithin10s(message)
         }
     }
 
-    private void startWorkManagerJob(RemoteMessage message) {
-        Log.d(TAG, "Start new Job processing.");
+    private fun startWorkManagerJob(message: RemoteMessage) {
+        Log.d(TAG, "Start new Job processing.")
     }
 
-    private void processWithin10s(RemoteMessage message) {
-        Log.d(TAG, "Processing now.");
+    private fun processWithin10s(message: RemoteMessage) {
+        Log.d(TAG, "Processing now.")
     }
 
-    @Override
-    public void onMessageSent(String msgId) {
-        Log.i(TAG, "onMessageSent called, Message id:" + msgId);
-        Intent intent = new Intent();
-        intent.setAction(CODELABS_ACTION);
-        intent.putExtra("method", "onMessageSent");
-        intent.putExtra("msg", "onMessageSent called, Message id:" + msgId);
-
-        sendBroadcast(intent);
+    override fun onMessageSent(msgId: String) {
+        Log.i(TAG, "onMessageSent called, Message id:$msgId")
+        val intent = Intent()
+        intent.action = CODELABS_ACTION
+        intent.putExtra("method", "onMessageSent")
+        intent.putExtra("msg", "onMessageSent called, Message id:$msgId")
+        sendBroadcast(intent)
     }
 
-    @Override
-    public void onSendError(String msgId, Exception exception) {
+    override fun onSendError(msgId: String, exception: Exception) {
         Log.i(TAG, "onSendError called, message id:" + msgId + ", ErrCode:"
-                + ((SendException) exception).getErrorCode() + ", description:" + exception.getMessage());
-
-        Intent intent = new Intent();
-        intent.setAction(CODELABS_ACTION);
-        intent.putExtra("method", "onSendError");
+                + (exception as SendException).errorCode + ", description:" + exception.message)
+        val intent = Intent()
+        intent.action = CODELABS_ACTION
+        intent.putExtra("method", "onSendError")
         intent.putExtra("msg", "onSendError called, message id:" + msgId + ", ErrCode:"
-                + ((SendException) exception).getErrorCode() + ", description:" + exception.getMessage());
-
-        sendBroadcast(intent);
+                + exception.errorCode + ", description:" + exception.message)
+        sendBroadcast(intent)
     }
 
-    @Override
-    public void onTokenError(Exception e) {
-        super.onTokenError(e);
+    override fun onTokenError(e: Exception) {
+        super.onTokenError(e)
+    }
+
+    companion object {
+        private const val TAG = "PushDemoLog"
+        private const val CODELABS_ACTION = "com.huawei.codelabpush.action"
     }
 }

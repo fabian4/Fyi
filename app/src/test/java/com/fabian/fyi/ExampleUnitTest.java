@@ -1,4 +1,4 @@
-package com.fabian.Fyi;
+package com.fabian.fyi;
 
 import org.junit.Test;
 
