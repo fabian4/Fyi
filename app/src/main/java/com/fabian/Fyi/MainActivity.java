@@ -1,13 +1,21 @@
-package com.fabian.fyi
+package com.fabian.Fyi;
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.os.Bundle;
+import android.widget.TextView;
+import android.widget.Toast;
 
-class MainActivity : AppCompatActivity() {
+import androidx.appcompat.app.AppCompatActivity;
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+public class MainActivity extends AppCompatActivity {
+
+    @SuppressLint("HandlerLeak")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
 //        final TextView textView = findViewById(R.id.clientId);
 //        textView.setText("token");
@@ -20,5 +28,6 @@ class MainActivity : AppCompatActivity() {
 //            clipboard.setPrimaryClip(myClip);
 //            Toast.makeText(getApplicationContext(), text + " 已复制", Toast.LENGTH_SHORT).show();
 //        });
+
     }
 }
