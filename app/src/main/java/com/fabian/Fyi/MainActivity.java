@@ -5,6 +5,7 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.fabian.Fyi.database.dao.MessageDao;
 import com.fabian.Fyi.database.domain.Message;
 import com.fabian.Fyi.adapter.MsgAdapter;
 
@@ -13,23 +14,33 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final List<Message> messages = new ArrayList<>();
+    MessageDao messageDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initDate();
-        MsgAdapter msgAdapter = new MsgAdapter(MainActivity.this, R.layout.msg_item, messages);
+        initDataBase();
+
+        MsgAdapter msgAdapter = new MsgAdapter(MainActivity.this, R.layout.msg_item, messageDao.queryAll());
         ListView listview = findViewById(R.id.list);
         listview.setAdapter(msgAdapter);
     }
 
-    public void initDate(){
+    public void initDataBase(){
+        messageDao = new MessageDao(this);
+        for (int i = 0; i < 10; i++) {
+            messageDao.delete(i);
+        }
+    }
+
+    public List<Message> initDate(){
+        List<Message> messages = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             Message msg = new Message(i, "tag", "msg" + i, "detail", "2021-12-02 15:23:47");
             messages.add(msg);
         }
+        return messages;
     }
 }
