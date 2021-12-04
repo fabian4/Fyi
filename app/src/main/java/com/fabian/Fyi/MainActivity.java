@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void initDate(){
         for (int i = 0; i < 10; i++) {
-            Message msg = new Message("tag", "msg" + i, "detail");
+            Message msg = new Message("tag", "msg" + i, "detail", "2021-12-02 15:23:47");
             messages.add(msg);
         }
     }

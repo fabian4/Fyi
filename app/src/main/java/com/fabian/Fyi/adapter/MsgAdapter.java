@@ -30,9 +30,11 @@ public class MsgAdapter extends ArrayAdapter<Message> {
         TextView msg = view.findViewById(R.id.msg);
         TextView tag = view.findViewById(R.id.tag);
         TextView detail = view.findViewById(R.id.detail);
+        TextView dateTime = view.findViewById(R.id.dateTime);
         msg.setText(message.getMsg());
         tag.setText(message.getTag());
         detail.setText(message.getDetail());
+        dateTime.setText(message.getDateTime());
         return view;
     }
 }

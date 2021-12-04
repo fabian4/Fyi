@@ -9,42 +9,50 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"
+        android:layout_margin="20dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1">
                 <TextView
                     android:id="@+id/msg"
+                    android:text="msg"
+                    android:layout_weight="8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:textSize="20sp"
+                    android:textSize="25sp"
                     />
-            </LinearLayout>
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_weight="1">
+
                 <TextView
-                    android:id="@+id/tag"
+                    android:id="@+id/dateTime"
+                    android:text="2021-12-02 15:23:47"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
+                    android:textSize="10sp"
+                    />
+                <TextView
+                    android:id="@+id/tag"
+                    android:text="tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:textSize="15sp"
                     />
             </LinearLayout>
         </LinearLayout>
 
         <TextView
             android:id="@+id/detail"
+            android:text="details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
