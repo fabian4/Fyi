@@ -1,17 +1,27 @@
-package com.fabian.Fyi.adapter;
+package com.fabian.Fyi.database.domain;
 
 public class Message {
 
+    private int id;
     private String tag;
     private String msg;
     private String detail;
     private String dateTime;
 
-    public Message(String tag, String msg, String detail, String dateTime) {
+    public Message(int id, String tag, String msg, String detail, String dateTime) {
+        this.id = id;
         this.tag = tag;
         this.msg = msg;
         this.detail = detail;
         this.dateTime = dateTime;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTag() {

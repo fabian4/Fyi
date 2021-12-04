@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.fabian.Fyi.R;
+import com.fabian.Fyi.database.domain.Message;
 
 import java.util.List;
 

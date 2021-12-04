@@ -1,12 +1,11 @@
 package com.fabian.Fyi;
 
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.fabian.Fyi.adapter.Message;
+import com.fabian.Fyi.database.domain.Message;
 import com.fabian.Fyi.adapter.MsgAdapter;
 
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void initDate(){
         for (int i = 0; i < 10; i++) {
-            Message msg = new Message("tag", "msg" + i, "detail", "2021-12-02 15:23:47");
+            Message msg = new Message(i, "tag", "msg" + i, "detail", "2021-12-02 15:23:47");
             messages.add(msg);
         }
     }
